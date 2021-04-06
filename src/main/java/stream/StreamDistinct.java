@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 /**
  * 내부 개발자 교육을 위한 간단한 java Stream 샘플 소스
- *  - 중복제거
+ *  - 중복제거: filter의 predicate 작성
  *
  * @author 엄승하
  */
@@ -30,6 +30,9 @@ public class StreamDistinct {
 		//중복되지 않는 userId 추가 생성
 		list.add(getTestVO(2, 10));
 		list.add(getTestVO(3, 11));
+		list.add(getTestVO(4, 12));
+
+		System.out.println(String.format("\n테스트 list의 데이터 갯수:%d\n", list.size()));
 
 		long start = System.currentTimeMillis();
 		List<String> result = list.stream().filter(distinctByKey(m -> m.getUserId())).map(TestVO::getUserId).collect(Collectors.toList()); //java stream을 이용해서 유니크한 userId리스트만 모으기
@@ -42,7 +45,7 @@ public class StreamDistinct {
 		}
 		System.out.println("== End: 중복 제거된 userId 리스트");
 
-		System.out.println("중복제거 stream filter 소요시간(millis): " + (end - start));
+		System.out.println("\n중복제거 stream filter 소요시간(millis): " + (end - start));
 
 	}
 
